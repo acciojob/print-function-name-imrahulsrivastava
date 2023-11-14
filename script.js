@@ -1,4 +1,6 @@
 const getFuncName = (name) => {
+  // Write your code here
+
   let isValidFunc = validFunc(name);
 
   if (isValidFunc) {
@@ -12,10 +14,21 @@ const getFuncName = (name) => {
 };
 
 const validFunc = (str) => {
-  function hasCorrectNaming() {
+  function hasCorrectNaming(str, brackets) {
+    let arr = str.split("");
+
+    if (brackets) {
+      arr.pop();
+      arr.pop();
+    }
+
+    if (arr.length === 0) {
+      return false;
+    }
+
     let i = 0;
-    while (i < str.length - 2) {
-      let ch = str.charAt(i);
+    while (i < arr.length) {
+      let ch = arr[i];
       if (
         (ch < "0" || ch > "9") &&
         (ch < "a" || ch > "z") &&
@@ -31,7 +44,7 @@ const validFunc = (str) => {
     return true;
   }
 
-  function removeSemiColons() {
+  function removeSemiColons(str) {
     let arr = str.split("");
     for (let i = arr.length - 1; i >= 0; i--) {
       if (str.charAt(i) !== ";") {
@@ -42,12 +55,14 @@ const validFunc = (str) => {
     return arr.join("");
   }
 
-  str = removeSemiColons();
+  str = removeSemiColons(str);
   let n = str.length;
   let hasCorrectBrackets = str[n - 2] === "(" && str[n - 1] === ")";
 
-  return hasCorrectBrackets && hasCorrectNaming();
+  return hasCorrectBrackets && hasCorrectNaming(str, hasCorrectBrackets);
 };
+
+// Do not change the code below.
 
 const funcName = prompt("Enter the function: ");
 alert(getFuncName(funcName));
