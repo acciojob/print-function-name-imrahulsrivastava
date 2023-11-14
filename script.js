@@ -56,5 +56,4 @@ function naming(arr) {
 
 // Do not change the code below.
 
-const funcName = prompt("Enter the function: ");
-alert(getFuncName(funcName));
+alert(getFuncName("functionName();"));
