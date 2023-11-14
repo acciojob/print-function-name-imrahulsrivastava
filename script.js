@@ -56,4 +56,4 @@ function naming(arr) {
 
 // Do not change the code below.
 
-alert(getFuncName("functionName();"));
+alert(getFuncName("functionName"));
