@@ -1,66 +1,58 @@
-const getFuncName = (name) => {
-  // Write your code here
+const getFuncName = (str) => {
+  let arr = str.split("");
+  let hasCorrectBrackets = brackets(arr);
+  let hasCorrectNaming = naming(arr);
 
-  let isValidFunc = validFunc(name);
-
-  if (isValidFunc) {
-    let arr = name.split("");
-    arr.pop();
-    arr.pop();
+  if (hasCorrectBrackets && hasCorrectNaming) {
     return arr.join("");
-  } else {
-    return "Please enter a valid invoking function.";
   }
+
+  return "Please enter a valid invoking function.";
 };
 
-const validFunc = (str) => {
-  function hasCorrectNaming(str, brackets) {
-    let arr = str.split("");
-
-    if (brackets) {
-      arr.pop();
-      arr.pop();
+function semiColons(arr) {
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i] !== ";") {
+      break;
     }
+    arr.pop();
+  }
+}
 
-    if (arr.length === 0) {
-      return false;
-    }
+function brackets(arr) {
+  semiColons(arr);
 
-    let i = 0;
-    while (i < arr.length) {
-      let ch = arr[i];
-      if (
-        (ch < "0" || ch > "9") &&
-        (ch < "a" || ch > "z") &&
-        (ch < "A" || ch > "Z") &&
-        ch !== "_" &&
-        ch !== "$"
-      ) {
-        return false;
-      }
-      i++;
-    }
-
+  if (arr[arr.length - 1] === ")" && arr[arr.length - 2] === "(") {
+    arr.pop();
+    arr.pop();
     return true;
   }
 
-  function removeSemiColons(str) {
-    let arr = str.split("");
-    for (let i = arr.length - 1; i >= 0; i--) {
-      if (str.charAt(i) !== ";") {
-        break;
-      }
-      arr.pop();
-    }
-    return arr.join("");
+  return false;
+}
+
+function naming(arr) {
+  if (arr.length === 0) {
+    return false;
   }
 
-  str = removeSemiColons(str);
-  let n = str.length;
-  let hasCorrectBrackets = str[n - 2] === "(" && str[n - 1] === ")";
+  let i = 0;
+  while (i < arr.length) {
+    if (
+      (arr[i] >= "0" && arr[i] <= "9") ||
+      (arr[i] >= "a" && arr[i] <= "z") ||
+      (arr[i] >= "A" && arr[i] <= "Z") ||
+      arr[i] === "_" ||
+      arr[i] === "$"
+    ) {
+      i++;
+    } else {
+      return false;
+    }
+  }
 
-  return hasCorrectBrackets && hasCorrectNaming(str, hasCorrectBrackets);
-};
+  return true;
+}
 
 // Do not change the code below.
 
